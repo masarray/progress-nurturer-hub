@@ -1,19 +1,32 @@
-import { useState } from "react";
-import { Mail, ArrowRight, ShieldCheck } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { useAuth } from '@/lib/auth';
+import { Mail, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
-export function LoginScreen() {
-  const [email, setEmail] = useState("");
+interface LoginScreenProps {
+  onLoginSuccess: () => void;
+}
 
-  const handleLogin = () => {
+export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
+  const [email, setEmail] = useState('');
+  const { login, loading } = useAuth();
+  const { toast } = useToast();
+
+  const handleLogin = async () => {
     if (!email.trim()) {
-      alert("Silakan isi email terlebih dahulu.");
+      toast({ title: 'Email wajib diisi', variant: 'destructive' });
       return;
     }
-    alert(
-      "UI login sudah aktif, tetapi endpoint login di Apps Script belum disambungkan di frontend ini. Langkah berikutnya adalah menambahkan API login dan panel internal."
-    );
+
+    const res = await login(email.trim());
+    if (res.success) {
+      toast({ title: 'Login berhasil ✓' });
+      onLoginSuccess();
+    } else {
+      toast({ title: res.message || 'Login gagal', variant: 'destructive' });
+    }
   };
 
   return (
@@ -27,11 +40,11 @@ export function LoginScreen() {
             Masuk ke Panel Internal
           </h3>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-            Bendahara dan pengurus memakai panel yang lebih cepat untuk input dan monitoring.
+            Bendahara dan pengurus memakai panel yang lebih cepat untuk input dan monitoring keuangan.
           </p>
         </div>
 
-        <label htmlFor="emailInput" className="block text-xs font-semibold text-muted-foreground mb-2">
+        <label htmlFor="emailInput" className="block text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
           Email
         </label>
         <div className="relative">
@@ -43,22 +56,27 @@ export function LoginScreen() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="pl-11 h-12 rounded-2xl bg-background border-border text-sm"
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+            disabled={loading}
           />
         </div>
 
         <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
-          Login akan diproses lewat backend Apps Script agar data dan role tetap aman.
+          Login diproses lewat backend Apps Script. Hanya email yang terdaftar di sheet USERS yang bisa masuk.
         </p>
 
         <Button
           onClick={handleLogin}
+          disabled={loading}
           className="w-full mt-5 h-12 rounded-2xl bg-gradient-to-b from-primary to-dkm-green-strong
                      text-primary-foreground font-bold text-sm shadow-soft hover:shadow-elevated
                      transition-all duration-200 active:scale-[0.98]"
         >
-          Lanjut Masuk
-          <ArrowRight className="w-4 h-4 ml-1" />
+          {loading ? (
+            <><Loader2 className="w-4 h-4 animate-spin" /> Memproses...</>
+          ) : (
+            <>Lanjut Masuk <ArrowRight className="w-4 h-4 ml-1" /></>
+          )}
         </Button>
       </section>
     </div>
