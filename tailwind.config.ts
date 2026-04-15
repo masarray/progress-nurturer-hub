@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Inter", "Plus Jakarta Sans", "sans-serif"],
+        heading: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,28 +61,40 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        dkm: {
+          green: "hsl(var(--dkm-green))",
+          "green-strong": "hsl(var(--dkm-green-strong))",
+          "green-soft": "hsl(var(--dkm-green-soft))",
+          gold: "hsl(var(--dkm-gold))",
+          "gold-soft": "hsl(var(--dkm-gold-soft))",
+          "gold-text": "hsl(var(--dkm-gold-text))",
+          positive: "hsl(var(--dkm-positive))",
+          "positive-text": "hsl(var(--dkm-positive-text))",
+          negative: "hsl(var(--dkm-negative))",
+          "negative-text": "hsl(var(--dkm-negative-text))",
+          surface: "hsl(var(--dkm-surface))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1.5rem",
+        "3xl": "1.75rem",
+      },
+      boxShadow: {
+        soft: "0 8px 30px -8px hsl(var(--dkm-green) / 0.08)",
+        elevated: "0 16px 40px -12px hsl(var(--dkm-green) / 0.12)",
+        card: "0 2px 12px -2px hsl(var(--dkm-green) / 0.06)",
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
