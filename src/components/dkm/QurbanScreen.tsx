@@ -120,7 +120,7 @@ export function QurbanScreen() {
               <h3 className="font-heading text-sm font-bold text-foreground">🐄 Progres Qurban</h3>
               <span className="text-xs font-bold text-primary">{safeNumber(qurban.progressPct)}%</span>
             </div>
-            <ProgressBar pct={safeNumber(qurban.progressPct)} color={qurban.progressColor} />
+            <ProgressBar value={safeNumber(qurban.progressPct)} color={qurban.progressColor} />
             <div className="grid grid-cols-3 gap-3 mt-4">
               <div className="text-center">
                 <p className="text-lg font-bold text-foreground">{safeNumber(qurban.totalGroups)}</p>
@@ -156,7 +156,7 @@ export function QurbanScreen() {
                     {g.filledSlots}/{g.totalSlots}
                   </span>
                 </div>
-                <ProgressBar pct={safeNumber(g.paymentProgressPct)} color={g.paymentProgressColor} />
+                <ProgressBar value={safeNumber(g.paymentProgressPct)} color={g.paymentProgressColor} />
                 <p className="text-[11px] text-muted-foreground mt-1.5">
                   {formatCurrency(g.collectedNominal)} / {formatCurrency(g.targetNominal)}
                   {' · '}{g.lunasCount || 0} lunas, {g.dpCount || 0} DP, {g.belumCount || 0} belum

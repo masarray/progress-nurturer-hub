@@ -78,7 +78,7 @@ export function RekapScreen() {
             </span>
           </div>
           <ProgressBar
-            pct={safeNumber(internalData.qurban.progressPct)}
+            value={safeNumber(internalData.qurban.progressPct)}
             color={internalData.qurban.progressColor}
           />
           <p className="text-xs text-muted-foreground mt-2">
