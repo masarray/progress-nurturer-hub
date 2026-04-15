@@ -34,7 +34,7 @@ export function HomeScreen({ data, loading, error }: HomeScreenProps) {
         </div>
         <div className="absolute right-5 bottom-5 w-20 h-20">
           <img
-            src="/icons/mushola.svg"
+            src={`${import.meta.env.BASE_URL}icons/mushola.svg`}
             alt="Mushola"
             className="w-full h-full opacity-80 drop-shadow-lg"
           />
